@@ -23,18 +23,23 @@ const makeError = (response) => {
         case 400:
             error.message = statusText ? statusText : "Bad Request"
             error.name = "BadRequestError"
+            break
         case 401:
             error.message = statusText ? statusText : "UnauthorizedError"
             error.name = "UnauthorizedError"
+            break
         case 403:
             error.message = statusText ? statusText : "Forbidden"
             error.name = "ForbiddenError"
+            break
         case 404:
             error.message = statusText ? statusText : "Not Found"
             error.name = "NotFoundError"
+            break
         case 500:
             error.message = statusText ? statusText : "Internal Server Error"
             error.name = "InternalServerError"
+            break
         default:
             error.message = statusText ? statusText : "UNKNOWN ERROR"
             error.name = "UnknownError"
