@@ -24,7 +24,9 @@ const buttonContentArray = [
 const addEventListenerToButton = (buttonText, button) => {
     let eventListener;
     // console.log("----button:", button, "inner text as argument:", buttonText)
-
+    // ===== TODO ======
+    // 1. text 바깥으로 빼야
+    // 2. 그리고 연산기호는 키보드 특수문자로 변환해야
     switch (buttonText) {
         case "C":
             eventListener = () => {
@@ -82,14 +84,17 @@ const addEventListenerToButton = (buttonText, button) => {
         case "=":
             eventListener = () => {
                 const formula = currentSection.innerText
-                
+
                 // //g 정규표현식(regex) 글로벌, find all matches
                 // ^ 여집합
                 // \- (escape)-
                 formula.replace(/[^0-9+\-*/().]/g, "");
 
-                previousSection.innerText = formula
                 const result = eval(formula);
+                if (result === formula) { return }
+
+                previousSection.innerText = formula
+
                 currentSection.innerText = result
             }
             break
@@ -106,7 +111,7 @@ const addEventListenerToButton = (buttonText, button) => {
                     currentSection.innerText += "*0."
                     return
                 }
-                
+
                 const lastCharInNumber = Number(lastChar)
                 if (Number.isNaN(lastCharInNumber)) {
                     currentSection.innerText += "0."
@@ -130,27 +135,31 @@ const addEventListenerToButton = (buttonText, button) => {
                 // 구분해야
                 const text = currentSection.innerText
                 const lastCharInNumber = parseInt(text.at(-1))
-                
+
                 if (Number.isNaN(lastCharInNumber)) {
                     currentSection.innerText += buttonText
+                    console.log("---- last not number:", text.at(-1), lastCharInNumber)
                     return
                 }
 
                 // 살아남은 건 모두 숫자
-                // 000은 0으로 해야, 하지만 0.000에서는 0 더 붙이기 가능
-                const splitedArray = text.split("/[\d.]+/")
-                console.log("---- splitted array:", splitedArray)
+                const lastNumberString = text.split(/[^0-9.]+/g).at(-1)
+                if (lastNumberString === "0") {
+                    return
+                }
 
                 currentSection.innerText += buttonText
-                // if ()
-                // if (formulaSection)
-                // resultSection.innerText = ""
             }
             break
         default:
             // consider they are all natural numbers
             eventListener = () => {
                 // console.log("---- consider this is a number")
+                const text = currentSection.innerHTML
+                if (text.at(-1) === ")") {
+                    currentSection.innerHTML += `*${buttonText}`
+                    return
+                }
                 currentSection.innerHTML += buttonText
             }
         // console.log(`---- WRONG INPUT HOW DID YOU DO THAT??? input: "${innerText}"`)
