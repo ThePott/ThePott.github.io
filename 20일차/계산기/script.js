@@ -57,8 +57,9 @@ const addEventListenerToButton = (buttonText, button) => {
             break
         case "back":
             eventListener = () => {
-                currentSection.innerText = ""
-                previousSection.innerText = ""
+                // console.log("type of inner text", typeof currentSection.innerText)
+                const text = currentSection.innerText
+                currentSection.innerText = text.slice(0, text.length - 1)
             }
             break
 
