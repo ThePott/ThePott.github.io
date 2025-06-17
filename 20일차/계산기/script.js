@@ -26,6 +26,9 @@ const addEventListenerToButton = (buttonText, button) => {
     // console.log("----button:", button, "inner text as argument:", buttonText)
     // ===== TODO ======
     // 1. text 바깥으로 빼야
+    const text = currentSection.innerText
+    const lastChar = currentSection.innerText.at(-1)
+    const lastCharInNumber = Number(lastChar)
     // 2. 그리고 연산기호는 키보드 특수문자로 변환해야
     switch (buttonText) {
         case "C":
@@ -59,8 +62,6 @@ const addEventListenerToButton = (buttonText, button) => {
             break
         case "back":
             eventListener = () => {
-                // console.log("type of inner text", typeof currentSection.innerText)
-                const text = currentSection.innerText
                 currentSection.innerText = text.slice(0, text.length - 1)
             }
             break
@@ -71,7 +72,7 @@ const addEventListenerToButton = (buttonText, button) => {
         case "-":
         case "+":
             eventListener = () => {
-                const lastCharInNumber = Number(currentSection.innerText.at(-1))
+                // const lastCharInNumber = Number(currentSection.innerText.at(-1))
                 // console.log("last char:", innerText.at(-1), "in number:", lastCharInNumber, lastCharInNumber >= 0)
                 if (lastCharInNumber >= 0) {
                     currentSection.innerText += buttonText
@@ -100,8 +101,8 @@ const addEventListenerToButton = (buttonText, button) => {
             break
         case ".":
             eventListener = () => {
-                const text = currentSection.innerText
-                const lastChar = text.at(-1)
+                // const text = currentSection.innerText
+                // const lastChar = text.at(-1)
 
                 if (lastChar === ".") {
                     return
@@ -112,7 +113,7 @@ const addEventListenerToButton = (buttonText, button) => {
                     return
                 }
 
-                const lastCharInNumber = Number(lastChar)
+                // const lastCharInNumber = Number(lastChar)
                 if (Number.isNaN(lastCharInNumber)) {
                     currentSection.innerText += "0."
                     return
@@ -133,8 +134,8 @@ const addEventListenerToButton = (buttonText, button) => {
                 // !TODO!
                 // . 로직이랑 0 로직이 섞여 있다.
                 // 구분해야
-                const text = currentSection.innerText
-                const lastCharInNumber = parseInt(text.at(-1))
+                // const text = currentSection.innerText
+                // const lastCharInNumber = parseInt(text.at(-1))
 
                 if (Number.isNaN(lastCharInNumber)) {
                     currentSection.innerText += buttonText
@@ -154,8 +155,8 @@ const addEventListenerToButton = (buttonText, button) => {
         default:
             // consider they are all natural numbers (non zero number)
             eventListener = () => {
-                const text = currentSection.innerHTML
-                if (text.at(-1) === ")") {
+                // const text = currentSection.innerHTML
+                if (lastChar === ")") {
                     currentSection.innerHTML += `*${buttonText}`
                     return
                 }
