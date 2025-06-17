@@ -83,7 +83,7 @@ const addEventListenerToButton = (buttonText, button) => {
             eventListener = () => {
                 const formula = currentSection.innerText
                 
-                // //g 정규표현식
+                // //g 정규표현식(regex) 글로벌, find all matches
                 // ^ 여집합
                 // \- (escape)-
                 formula.replace(/[^0-9+\-*/().]/g, "");
@@ -97,47 +97,44 @@ const addEventListenerToButton = (buttonText, button) => {
             eventListener = () => {
                 const text = currentSection.innerText
                 const lastChar = text.at(-1)
-                console.log("---- last char:", lastChar)
+
                 if (lastChar === ".") {
                     return
                 }
 
-                if (typeof lastChar !== "number") {
+                if (lastChar === ")") {
+                    currentSection.innerText += "*0."
+                    return
+                }
+                
+                const lastCharInNumber = Number(lastChar)
+                if (Number.isNaN(lastCharInNumber)) {
                     currentSection.innerText += "0."
                     return
                 }
 
-                // 앞에 아무것도 없으면 그냥 0.
+                const splitedArray = text.split(/[+\-*/()]+/)
+                const lastNumber = splitedArray.at(-1)
 
-                // 살아남은 건 모두 숫자
-                // 000은 0으로 해야, 하지만 0.000에서는 0 더 붙이기 가능
-                const splitedArray = text.split("/[\d.]+/")
-                console.log("---- splitted array:", splitedArray)
+                if (lastNumber.includes(".")) {
+                    return
+                }
 
-                currentSection.innerText += buttonText
-                // if ()
-                // if (formulaSection)
-                // resultSection.innerText = ""
+                currentSection.innerHTML += buttonText
             }
             break
         case 0:
-            // !TODO!
-            // . 로직이랑 0 로직이 섞여 있다.
-            // 구분해야
             eventListener = () => {
+                // !TODO!
+                // . 로직이랑 0 로직이 섞여 있다.
+                // 구분해야
                 const text = currentSection.innerText
-                const lastChar = text.at(-1)
-                console.log("---- last char:", lastChar)
-                if (lastChar === ".") {
+                const lastCharInNumber = parseInt(text.at(-1))
+                
+                if (Number.isNaN(lastCharInNumber)) {
+                    currentSection.innerText += buttonText
                     return
                 }
-
-                if (typeof lastChar !== "number") {
-                    currentSection.innerText += "0."
-                    return
-                }
-
-                // 앞에 아무것도 없으면 그냥 0.
 
                 // 살아남은 건 모두 숫자
                 // 000은 0으로 해야, 하지만 0.000에서는 0 더 붙이기 가능
