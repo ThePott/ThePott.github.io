@@ -152,9 +152,8 @@ const addEventListenerToButton = (buttonText, button) => {
             }
             break
         default:
-            // consider they are all natural numbers
+            // consider they are all natural numbers (non zero number)
             eventListener = () => {
-                // console.log("---- consider this is a number")
                 const text = currentSection.innerHTML
                 if (text.at(-1) === ")") {
                     currentSection.innerHTML += `*${buttonText}`
@@ -162,8 +161,6 @@ const addEventListenerToButton = (buttonText, button) => {
                 }
                 currentSection.innerHTML += buttonText
             }
-        // console.log(`---- WRONG INPUT HOW DID YOU DO THAT??? input: "${innerText}"`)
-
     }
 
     button.addEventListener("click", eventListener)
