@@ -1,0 +1,151 @@
+/* 모든 요소의 기본 여백 제거 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    color: #D3C6AA;
+}
+
+/* HTML과 Body의 기본 설정 */
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    background-color: #1E2326;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+div#app-boundary {
+    width: calc(48px * 4 + 8px * 5);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px;
+    border-radius: 8px;
+
+    background-color: #272E33;
+}
+
+div#app-boundary header#task-bar {
+    /* background-color: lightcoral; */
+
+    display: flex;
+    gap: 8px;
+}
+
+div#app-boundary header#task-bar button {
+    width: 16px;
+    height: 16px;
+    border-radius: 8px;
+    border: none;
+}
+
+div#app-boundary header#task-bar button:nth-child(1) {
+    background-color: #E67E80;
+}
+
+div#app-boundary header#task-bar button:nth-child(2) {
+    background-color: #DBBC7F;
+}
+
+div#app-boundary header#task-bar button:nth-child(3) {
+    background-color: #A7C080;
+}
+
+div#app-boundary section#display {
+    /* background-color: lightgreen; */
+    height: 100px;
+    
+    font-size: 40px;
+    font-weight: 600;
+    /* color: white; */
+    
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    padding: 8px;
+
+    overflow: hidden;
+}
+
+div#app-boundary section#buttons {
+    /* background-color: lightskyblue; */
+    flex-grow: 1;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+div#app-boundary section#buttons button {
+    flex-basis: 48px;
+    height: 48px;
+    border-radius: 24px;
+
+    font-size: 20px;
+    font-weight: 500;
+
+    border: none;
+    background-color: #4F5B58;
+    /* color: white; */
+
+}
+
+div#app-boundary section#buttons button.zero {
+    flex-basis: calc(48px * 2 + 8px);
+}
+
+div#app-boundary section#buttons button:hover {
+    background-color: #2E383C;
+}
+div#app-boundary section#buttons button:active {
+    background-color: #1E2326;
+}
+
+/* animation */
+.scaled-drop {
+    animation-name: scaled-drop;
+    animation-duration: 0.5s;
+    animation-timing-function: cubic-bezier(.12,-0.05,.14,1.84);
+}
+
+.blur {
+    animation-name: blur;
+    animation-duration: 0.5s;
+    animation-timing-function: cubic-bezier(.08,.34,.26,1.11);
+}
+
+@keyframes scaled-drop {
+    from {
+        transform: translateY(-100px);
+        scale: 50%;
+        opacity: 0%;
+    }
+    to {
+        transform: translateY(0);
+        scale: 100%;
+        opacity: 100%;
+    }
+}
+
+@keyframes blur {
+    from {
+        -webkit-filter: blur(50px);
+        transform: translateY(-100px);
+        scale: 110%;
+        opacity: 0%;
+    }
+    to {
+        -webkit-filter: blur(0);
+        transform: translateY(0);
+        scale: 100%;
+        opacity: 100%;
+    }
+}
+
